@@ -14,6 +14,7 @@ var fruit;
 var mom;
 var mx;
 var my;
+var baby;
 
 document.body.onload = game;
 function game() {
@@ -48,8 +49,12 @@ function init() {
 	mom = new fishMom();
 	mom.init();
 
+	baby = new babyObj();
+	baby.init();
+
 	mx = canWidth*0.5;
 	my = canHeight*0.5;
+
 
 }
 
@@ -70,6 +75,7 @@ function gameloop() {
 	fruit.draw();
 	mom.draw();
 	momFruitsCollision();
+	baby.draw();
 } 
 
 function onMouseMove(e){
