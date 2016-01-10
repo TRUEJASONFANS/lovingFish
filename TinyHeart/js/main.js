@@ -28,6 +28,8 @@ var momBodyBlue = [];
 
 var data;
 
+var wave;
+
 document.body.onload = game;
 function game() {
 
@@ -99,6 +101,11 @@ function init() {
 		momBodyOra[i].src = "./src/bigSwim" + i + ".png";
 		momBodyBlue[i].src = "./src/bigSwimBlue" + i + ".png";
 	}
+	wave = new waveObj();
+	wave.init();
+
+	ctx1.font = "30px Verdana";
+	ctx1.textAlign = "center";
 }
 
 function gameloop() {
@@ -121,10 +128,11 @@ function gameloop() {
 	momBabyCollision();
 	baby.draw();
 	data.draw();
+	wave.draw();
 } 
 
 function onMouseMove(e){
-	if(e.offSetX || e.layerX) {
+	if(!data.gameover && (e.offSetX || e.layerX)) {
 		mx = e.offSetX == undefined ? e.layerX:e.offSetX;
 		my = e.offSetY == undefined ? e.layerY:e.offSetY;
 	}
