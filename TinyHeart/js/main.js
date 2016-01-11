@@ -30,6 +30,8 @@ var data;
 
 var wave;
 
+var halo;
+
 document.body.onload = game;
 function game() {
 
@@ -104,6 +106,9 @@ function init() {
 	wave = new waveObj();
 	wave.init();
 
+	halo = new haloObj();
+	halo.init();
+
 	ctx1.font = "30px Verdana";
 	ctx1.textAlign = "center";
 }
@@ -129,6 +134,7 @@ function gameloop() {
 	baby.draw();
 	data.draw();
 	wave.draw();
+	halo.draw();
 } 
 
 function onMouseMove(e){

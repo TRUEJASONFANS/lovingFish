@@ -63,7 +63,6 @@ fishMom.prototype.draw = function()
 	ctx1.drawImage(momTail[momTailCount], -momTail[momTailCount].width*0.5 + 30, -momTail[momTailCount].height*0.5);
 
 	var momBodyCount = this.momBodyCount;
-	console.log(momBodyCount);
 
 	if(data.double == 1) {
 		ctx1.drawImage(momBodyOra[momBodyCount], -momBodyOra[momBodyCount].width*0.5, -momBodyOra[momBodyCount].height*0.5);
