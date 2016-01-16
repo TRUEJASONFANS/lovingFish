@@ -32,6 +32,9 @@ var wave;
 
 var halo;
 
+var dust;
+var dustPic = [];
+
 document.body.onload = game;
 function game() {
 
@@ -109,8 +112,17 @@ function init() {
 	halo = new haloObj();
 	halo.init();
 
+	for(var i = 0; i < 7 ; i++) {
+		dustPic[i] = new Image();
+		dustPic[i].src = "./src/dust" + i +".png";
+	}
+	dust = new dustObj();
+	dust.init();
+
 	ctx1.font = "30px Verdana";
 	ctx1.textAlign = "center";
+
+
 }
 
 function gameloop() {
@@ -135,6 +147,7 @@ function gameloop() {
 	data.draw();
 	wave.draw();
 	halo.draw();
+	dust.draw();
 } 
 
 function onMouseMove(e){

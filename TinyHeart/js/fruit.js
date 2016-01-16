@@ -7,6 +7,7 @@ var fruitObj = function(){
 	this.fruitType = [];
 	this.orange = new Image();
 	this.blue = new Image();
+	this.aneNO = [];
 }
 
 fruitObj.prototype.num = 30;
@@ -16,7 +17,8 @@ fruitObj.prototype.init = function() {
 		this.alive[i] = true;
 		this.x[i] = 0;
 		this.y[i] = 0;
-		this.speed[i] = Math.random()*0.01 + 0.005; 		
+		this.speed[i] = Math.random()*0.01 + 0.005; 
+		this.aneNO[i] = 0;		
 		this.born(i);
 	}
 	this.orange.src = "./src/fruit.png";
@@ -36,11 +38,16 @@ fruitObj.prototype.draw = function() {
 				var pic = this.orange;
 			}
 			if (this.l[i] <= 14) {
+				var NO = this.aneNO[i];
+				this.x[i] = ane.headx[NO];
+				this.y[i] = ane.heady[NO];
 				this.l[i] += this.speed[i] * deltaTime;
+
 			}
 			else {
 				this.y[i] -= this.speed[i]*7 * deltaTime;
 			}
+
 			ctx2.drawImage(pic,this.x[i] - this.l[i]*0.5,this.y[i] - this.l[i]*0.5 , this.l[i],this.l[i]);
 
 			if(this.y[i] < 10) {
@@ -57,8 +64,7 @@ fruitObj.prototype.update = function() {
 }
 fruitObj.prototype.born = function(i) {
 	var aneID = Math.floor(Math.random()*ane.num);
-	this.x[i] = ane.headx[aneID];
-	this.y [i] = ane.heady[aneID];
+	this.aneNO[i] = aneID;
 	this.l[i] = 0;
 	this.alive[i] = true;
 	var ran = Math.random();
