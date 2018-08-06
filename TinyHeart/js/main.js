@@ -37,8 +37,6 @@ var dustPic = [];
 
 document.body.onload = game;
 function game() {
-
-
 	init();
 	lastTime = Date.now();
 	deltaTime = 0;
@@ -55,7 +53,7 @@ function init() {
 
 	canvas1.addEventListener('mousemove',onMouseMove, false);
 
-	bgPic.src = "./src/background.jpg";
+	bgPic.src = "./src/bakground.jpg";
 	canWidth = canvas1.width;
 	canHeight = canvas1.height;
 
