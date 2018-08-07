@@ -1,11 +1,12 @@
 export default class OceaContext {
-  constructor(bgPic, canWidth, canHeight) {
-    this.bgPic = bgPicl;
+  constructor(bgPic, canWidth, canHeight, ctx2) {
+    this.bgPic = bgPic;
     this.canWidth = canWidth;
     this.canHeight = canHeight;
+    this.ctx2 = ctx2;
   }
   drawBackground() {
-    ctx2.drawImage(bgPic, 0, 0, canWidth, canHeight);
+    this.ctx2.drawImage(this.bgPic, 0, 0, this.canWidth, this.canHeight);
   }
 
   monitorFruit(fruit) {

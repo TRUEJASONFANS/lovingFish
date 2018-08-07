@@ -53,7 +53,7 @@ function init() {
 
 	canvas1.addEventListener('mousemove',onMouseMove, false);
 
-	bgPic.src = "./src/bakground.jpg";
+	// bgPic.src = "./src/bakground.jpg";
 	canWidth = canvas1.width;
 	canHeight = canvas1.height;
 

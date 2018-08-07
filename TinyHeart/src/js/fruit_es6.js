@@ -1,5 +1,4 @@
 export class Fruit {
-  static num = 30;
   constructor() {
     this.alive = [];
     this.x = [];
@@ -10,6 +9,7 @@ export class Fruit {
     this.orange = new Image();
     this.blue = new Image();
     this.aneNO = [];
+    this.num = 30;
     for (var i = 0; i < this.num; i++) {
       this.alive[i] = true;
       this.x[i] = 0;
