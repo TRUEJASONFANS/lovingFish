@@ -1,4 +1,4 @@
-export class FishMom {
+export default class FishMom {
   constructor(canWidth, canHeight) {
     this.x;
     this.y;

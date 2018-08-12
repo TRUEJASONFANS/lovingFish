@@ -28,9 +28,9 @@ aneObj.prototype.init = function()
 }
 aneObj.prototype.draw = function(){
 
-
 	this.alpha += deltaTime*0.0008;
-	var l = Math.sin(this.alpha); [-1,1] 
+	var l = Math.sin(this.alpha);
+	console.log(l);
 	ctx2.save();
 	ctx2.globalAlpha = 0.6;
 	for(var i = 0; i < this.num ; i++) {

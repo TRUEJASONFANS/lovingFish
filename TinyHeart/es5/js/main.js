@@ -38,7 +38,6 @@ var dustPic = [];
 document.body.onload = game;
 function game() {
 
-
 	init();
 	lastTime = Date.now();
 	deltaTime = 0;

@@ -5,6 +5,7 @@ import OceaContext from './ocea_context';
 import Fruit from './fruit_es6';
 import DataObj from './data_es6';
 import Background from './background.jpg'
+import TimeLine from './time_line';
 export default class FishGame {
   constructor(window) {
     this.canvas1 = document.getElementById("canvas1");
@@ -17,14 +18,20 @@ export default class FishGame {
     this.canWidth = this.canvas1.width;
     this.canHeight = this.canvas1.height;
 
-    this.ane = new Ane();
-    this.data = new DataObj();
-    
     this.bg = new Image();
     this.bg.src = Background;
-    this.lastTime = 0;
+    this.timeLine = new TimeLine();
+
     this.oceaContext = new OceaContext(this.bg, this.canWidth, this.canHeight, this.ctx2);
     
+    this.ane = new Ane(this.ctx2, this.canHeight,this.timeLine);
+    this.data = new DataObj();
+    // this.fruit = new Fruit(this.ctx2, this.ane);
+  
+    // this.baby = new FishBaby(this.ctx1, this.canWidth, this.canHeight);
+    this.onMouseMove.bind(this);
+    this.ctx1.font = "30px Verdana";
+    this.ctx1.textAlign = "center";
   }
   onMouseMove(e) {
     if(!this.data.gameover && (e.offSetX || e.layerX)) {
@@ -34,13 +41,8 @@ export default class FishGame {
   }
   gameloop() {
     requestAnimationFrame(this.gameloop.bind(this));
-    var now = Date.now();
-    this.deltaTime = now - this.lastTime;
-    this.lastTime = now;
-  
-    if(this.deltaTime > 50) {
-      this.deltaTime = 50;
-    }
+    this.timeLine.nextTick();
     this.oceaContext.drawBackground();
+    this.ane.draw();
   }
 }

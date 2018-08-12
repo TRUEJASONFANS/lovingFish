@@ -1,4 +1,4 @@
-export class Halo {
+export default class Halo {
   constructor() {
     this.x = [];
     this.y = [];

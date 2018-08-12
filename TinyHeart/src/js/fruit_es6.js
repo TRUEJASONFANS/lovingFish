@@ -1,5 +1,7 @@
-export class Fruit {
-  constructor() {
+import Orange from '../images/fruit.png';
+import Blue from '../images/blue.png';
+export default class Fruit {
+  constructor(ctx2, ane) {
     this.alive = [];
     this.x = [];
     this.y = [];
@@ -10,6 +12,7 @@ export class Fruit {
     this.blue = new Image();
     this.aneNO = [];
     this.num = 30;
+    this.ane = ane;
     for (var i = 0; i < this.num; i++) {
       this.alive[i] = true;
       this.x[i] = 0;
@@ -18,11 +21,13 @@ export class Fruit {
       this.aneNO[i] = 0;
       this.born(i);
     }
-    this.orange.src = "./src/fruit.png";
-    this.blue.src = "./src/blue.png";
+    this.orange.src = Orange;
+    this.blue.src = Blue;
+    this.ctx2 = ctx2;
   }
 
-  draw() {
+  draw(timeLine) {
+    let ctx2 = this.ctx2;
     for (var i = 0; i < this.num; i++) {
       //draw
       //find an ane,grow, fly up
@@ -34,11 +39,11 @@ export class Fruit {
         }
         if (this.l[i] <= 14) {
           var NO = this.aneNO[i];
-          this.x[i] = ane.headx[NO];
-          this.y[i] = ane.heady[NO];
-          this.l[i] += this.speed[i] * deltaTime;
+          this.x[i] = this.ane.headx[NO];
+          this.y[i] = this.ane.heady[NO];
+          this.l[i] += this.speed[i] * timeLine.deltaTime;
         } else {
-          this.y[i] -= this.speed[i] * 7 * deltaTime;
+          this.y[i] -= this.speed[i] * 7 * timeLine.deltaTime;
         }
 
         ctx2.drawImage(
@@ -56,8 +61,8 @@ export class Fruit {
     }
   }
 
-  born() {
-    var aneID = Math.floor(Math.random() * ane.num);
+  born(i) {
+    var aneID = Math.floor(Math.random() * this.ane.num);
     this.aneNO[i] = aneID;
     this.l[i] = 0;
     this.alive[i] = true;

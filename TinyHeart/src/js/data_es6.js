@@ -1,4 +1,4 @@
-export class DataObj {
+export default class DataObj {
   constructor() {
     this.fruitNum = 0;
     this.double = 1;

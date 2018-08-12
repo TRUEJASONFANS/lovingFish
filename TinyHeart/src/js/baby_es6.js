@@ -1,5 +1,5 @@
-export class FishBaby {
-  constructor(canWidth, canHeight) {
+export default class FishBaby {
+  constructor(ctx1, canWidth, canHeight) {
     this.babyEye = new Image();
     this.babyBody = new Image();
 
@@ -19,6 +19,28 @@ export class FishBaby {
     this.babyBodyTimer = 0;
     this.babyBodyCount = 0;
     this.babyBodyInterval = 1000;
+    this.babyTail = [];
+    this.babyEye = [];
+    this.babyBody = [];
+    this.babyTail = [];
+    let babyEye = this.babyEye;
+    let babyBody = this.babyBody;
+    let babyTail = this.babyTail;
+    for(var i = 0; i< 8;i ++) {
+      babyTail[i] = new Image();
+      babyTail[i].src ="./src/babyTail" + i + ".png";
+    }
+  
+    for(var i = 0; i < 2 ;i ++) {
+      babyEye[i] = new Image();
+      babyEye[i].src = "./src/babyEye" + i + ".png";		
+    }
+  
+    for(var i = 0; i < 20 ;i ++) {
+      babyBody[i] = new Image();
+      babyBody[i].src = "./src/babyFade" + i + ".png";		
+    }
+
   }
   lerpDistance() {
     var delta = cur - aim;
@@ -31,6 +53,10 @@ export class FishBaby {
     return a + d * t;
   }
   draw() {
+    let ctx1 = this.ctx1;
+    let babyEye = this.babyEye;
+    let babyBody = this.babyBody;
+    let babyTail = this.babyTail;
     //lerp x,y
     this.x = this.lerpDistance(mom.x, this.x, 0.98);
     this.y = this.lerpDistance(mom.y, this.y, 0.98);
