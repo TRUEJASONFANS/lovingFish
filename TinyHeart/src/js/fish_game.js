@@ -26,7 +26,7 @@ export default class FishGame {
     
     this.ane = new Ane(this.ctx2, this.canHeight,this.timeLine);
     this.data = new DataObj();
-    // this.fruit = new Fruit(this.ctx2, this.ane);
+    this.fruit = new Fruit(this.ctx2, this.ane, this.timeLine);
   
     // this.baby = new FishBaby(this.ctx1, this.canWidth, this.canHeight);
     this.onMouseMove.bind(this);
@@ -44,5 +44,7 @@ export default class FishGame {
     this.timeLine.nextTick();
     this.oceaContext.drawBackground();
     this.ane.draw();
+    this.fruit.draw();
+    this.fruit.monitor();
   }
 }

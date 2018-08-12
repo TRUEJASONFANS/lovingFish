@@ -27,7 +27,6 @@ export default class Ane {
     let ctx2 = this.ctx2;
     ctx2.save();
     ctx2.globalAlpha = 0.6;
-    console.log(l);
     for (var i = 0; i < this.num; i++) {
       ctx2.beginPath();
       ctx2.moveTo(this.rootx[i], this.canHeight); // start point

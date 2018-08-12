@@ -1,7 +1,7 @@
-import Orange from '../images/fruit.png';
-import Blue from '../images/blue.png';
+import Orange from "../images/fruit.png";
+import Blue from "../images/blue.png";
 export default class Fruit {
-  constructor(ctx2, ane) {
+  constructor(ctx2, ane, timeLine) {
     this.alive = [];
     this.x = [];
     this.y = [];
@@ -24,9 +24,11 @@ export default class Fruit {
     this.orange.src = Orange;
     this.blue.src = Blue;
     this.ctx2 = ctx2;
+    this.timeLine = timeLine;
   }
 
-  draw(timeLine) {
+  draw() {
+    let deltaTime = this.timeLine.getDeltaTime();
     let ctx2 = this.ctx2;
     for (var i = 0; i < this.num; i++) {
       //draw
@@ -41,9 +43,9 @@ export default class Fruit {
           var NO = this.aneNO[i];
           this.x[i] = this.ane.headx[NO];
           this.y[i] = this.ane.heady[NO];
-          this.l[i] += this.speed[i] * timeLine.deltaTime;
+          this.l[i] += this.speed[i] * deltaTime;
         } else {
-          this.y[i] -= this.speed[i] * 7 * timeLine.deltaTime;
+          this.y[i] -= this.speed[i] * 7 * deltaTime;
         }
 
         ctx2.drawImage(
@@ -82,4 +84,22 @@ export default class Fruit {
     this.alive[i] = false;
   }
 
+  monitor() {
+    var num = 0;
+    for (var i = 0; i < this.num; i++) {
+      if (this.alive[i]) num++;
+    }
+    if (num < 15) {
+      this.sendFruit();
+      return;
+    }
+  }
+  sendFruit() {
+    for (var i = 0; i < this.num; i++) {
+      if (!this.alive[i]) {
+        this.born(i);
+        return;
+      }
+    }
+  }
 }
