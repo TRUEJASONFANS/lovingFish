@@ -6,6 +6,7 @@ import Fruit from './fruit_es6';
 import DataObj from './data_es6';
 import Background from './background.jpg'
 import TimeLine from './time_line';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 export default class FishGame {
   constructor(window) {
     this.canvas1 = document.getElementById("canvas1");
@@ -17,6 +18,8 @@ export default class FishGame {
 
     this.canWidth = this.canvas1.width;
     this.canHeight = this.canvas1.height;
+    this.mx = this.canWidth*0.5;
+    this.my = this.canHeight*0.5;
 
     this.bg = new Image();
     this.bg.src = Background;
@@ -27,24 +30,31 @@ export default class FishGame {
     this.ane = new Ane(this.ctx2, this.canHeight,this.timeLine);
     this.data = new DataObj();
     this.fruit = new Fruit(this.ctx2, this.ane, this.timeLine);
-  
+
+    this.fishMom = new FishMom(this.canWidth, this.canHeight, this.mx, this.my, this.timeLine, this.ctx1, this.data);
     // this.baby = new FishBaby(this.ctx1, this.canWidth, this.canHeight);
     this.onMouseMove.bind(this);
     this.ctx1.font = "30px Verdana";
     this.ctx1.textAlign = "center";
+
+
   }
   onMouseMove(e) {
-    if(!this.data.gameover && (e.offSetX || e.layerX)) {
-      mx = e.offSetX == undefined ? e.layerX:e.offSetX;
-      my = e.offSetY == undefined ? e.layerY:e.offSetY;
+    if((e.offSetX || e.layerX)) {
+      this.mx = e.offSetX == undefined ? e.layerX:e.offSetX;
+      this.my = e.offSetY == undefined ? e.layerY:e.offSetY;
     }
+    console.log(this.mx);
+    console.log(this.my);
   }
   gameloop() {
     requestAnimationFrame(this.gameloop.bind(this));
     this.timeLine.nextTick();
     this.oceaContext.drawBackground();
     this.ane.draw();
-    this.fruit.draw();
     this.fruit.monitor();
+    this.ctx1.clearRect(0, 0, this.canWidth, this.canHeight);
+    this.fruit.draw();
+    this.fishMom.draw();
   }
 }

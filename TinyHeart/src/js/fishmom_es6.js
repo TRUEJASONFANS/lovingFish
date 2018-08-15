@@ -1,5 +1,7 @@
+import utils from "./utils";
+
 export default class FishMom {
-  constructor(canWidth, canHeight) {
+  constructor(canWidth, canHeight, mx, my, timeLine, ctx1, data) {
     this.x;
     this.y;
     this.angle;
@@ -16,10 +18,64 @@ export default class FishMom {
     this.x = canWidth * 0.5;
     this.y = canHeight * 0.5;
     this.angle = 0;
+    this.timeLine = timeLine;
+
+    this.mx = mx;
+    this.my = my;
+    this.ctx1 = ctx1;
+    this.data = data;
+
+    const context = require.context('../images', true,  /^\.\//)
+    console.log('tag', context.keys())
+    
+    this.momTail = [];
+    let fileName;
+    let tail;
+    for (var i = 0; i < 8; i++) {
+      fileName = "./bigTail6.png";
+      tail = context(fileName)
+      this.momTail[i] = new Image();
+      this.momTail[i].src = tail;
+    }
+    
+
+    this.momEye = [];
+    let eye;
+    for (var i = 0; i < 2; i++) {
+      fileName = "./babyEye" + i + ".png";
+      eye = context(fileName)
+      this.momEye[i] = new Image();
+      this.momEye[i].src = eye;
+    }
+
+    this.momBodyOra = [];
+    this.momBodyBlue = [];
+    let bodyOra, bodyBlue;
+    for (var i = 0; i < 8; i++) {
+      fileName = "./bigSwim" + i + ".png";
+      let bodyOra = context(fileName)
+      this.momBodyOra[i] = new Image();
+      this.momBodyOra[i].src = bodyOra;
+      fileName = "./bigSwimBlue" + i + ".png";
+      let bodyBlue = context(fileName);
+      this.momBodyBlue[i] = new Image();
+      this.momBodyBlue[i].src = bodyBlue;
+    }
+
   }
   draw() {
-    this.x = this.lerpDistance(mx, this.x, 0.9);
-    this.y = this.lerpDistance(my, this.y, 0.9);
+    let mx = this.mx;
+    let my = this.my;
+    let deltaTime = this.timeLine.getDeltaTime()
+    let ctx1 = this.ctx1;
+    let momTail = this.momTail
+    let momEye = this.momEye
+    let momBodyBlue = this.momBodyBlue
+    let momBodyOra = this.momBodyOra;
+    let data = this.data
+
+    this.x = utils.lerpDistance(mx, this.x, 0.9);
+    this.y = utils.lerpDistance(my, this.y, 0.9);
 
     //delta angel.
     var deltaY = my - this.y;
@@ -27,7 +83,7 @@ export default class FishMom {
     var beta = Math.atan2(deltaY, deltaX) + Math.PI;
 
     //lerp angle
-    this.angle = this.lerpAngle(beta, this.angle, 0.6);
+    this.angle = utils.lerpAngle(beta, this.angle, 0.6);
 
     this.momTailTimer += deltaTime;
     if (this.momTailTimer > 50) {

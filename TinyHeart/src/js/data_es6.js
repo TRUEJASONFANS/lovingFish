@@ -6,6 +6,9 @@ export default class DataObj {
     this.gameover = false;
     this.alpha = 0;
   }
+  getGameOver() {
+    return this.gameover;
+  }
   draw() {
     var w = canvas1.width;
     var h = canvas2.height;
