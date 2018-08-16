@@ -4,7 +4,7 @@ import FishMom from './fishmom_es6';
 import OceaContext from './ocea_context';
 import Fruit from './fruit_es6';
 import DataObj from './data_es6';
-import Background from './background.jpg'
+import Background from '../images/background.jpg'
 import TimeLine from './time_line';
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 export default class FishGame {
@@ -14,12 +14,14 @@ export default class FishGame {
     this.ctx1 = this.canvas1.getContext("2d");
     this.ctx2 = this.canvas2.getContext("2d");
     this.window = window
+    
+    self.mx = this.canWidth * 0.5;
+    self.my = this.canHeight * 0.5;
     this.canvas1.addEventListener('mousemove',this.onMouseMove, false);
 
     this.canWidth = this.canvas1.width;
     this.canHeight = this.canvas1.height;
-    this.mx = this.canWidth*0.5;
-    this.my = this.canHeight*0.5;
+
 
     this.bg = new Image();
     this.bg.src = Background;
@@ -28,24 +30,23 @@ export default class FishGame {
     this.oceaContext = new OceaContext(this.bg, this.canWidth, this.canHeight, this.ctx2);
     
     this.ane = new Ane(this.ctx2, this.canHeight,this.timeLine);
-    this.data = new DataObj();
+    self.data = new DataObj();
     this.fruit = new Fruit(this.ctx2, this.ane, this.timeLine);
 
-    this.fishMom = new FishMom(this.canWidth, this.canHeight, this.mx, this.my, this.timeLine, this.ctx1, this.data);
+    this.fishMom = new FishMom(this.canWidth, this.canHeight,this.timeLine, this.ctx1, self.data);
     // this.baby = new FishBaby(this.ctx1, this.canWidth, this.canHeight);
     this.onMouseMove.bind(this);
     this.ctx1.font = "30px Verdana";
     this.ctx1.textAlign = "center";
 
-
   }
   onMouseMove(e) {
     if((e.offSetX || e.layerX)) {
-      this.mx = e.offSetX == undefined ? e.layerX:e.offSetX;
-      this.my = e.offSetY == undefined ? e.layerY:e.offSetY;
+      self.mx = e.offSetX == undefined ? e.layerX:e.offSetX;
+      self.my = e.offSetY == undefined ? e.layerY:e.offSetY;
+      self.data.setLocation(self.mx, self.my);
     }
-    console.log(this.mx);
-    console.log(this.my);
+
   }
   gameloop() {
     requestAnimationFrame(this.gameloop.bind(this));

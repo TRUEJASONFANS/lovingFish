@@ -1,9 +1,8 @@
 import utils from "./utils";
 
 export default class FishMom {
-  constructor(canWidth, canHeight, mx, my, timeLine, ctx1, data) {
-    this.x;
-    this.y;
+  constructor(canWidth, canHeight,timeLine, ctx1, data) {
+  
     this.angle;
 
     this.momTailTimer = 0;
@@ -20,13 +19,10 @@ export default class FishMom {
     this.angle = 0;
     this.timeLine = timeLine;
 
-    this.mx = mx;
-    this.my = my;
     this.ctx1 = ctx1;
     this.data = data;
 
     const context = require.context('../images', true,  /^\.\//)
-    console.log('tag', context.keys())
     
     this.momTail = [];
     let fileName;
@@ -38,7 +34,6 @@ export default class FishMom {
       this.momTail[i].src = tail;
     }
     
-
     this.momEye = [];
     let eye;
     for (var i = 0; i < 2; i++) {
@@ -64,8 +59,9 @@ export default class FishMom {
 
   }
   draw() {
-    let mx = this.mx;
-    let my = this.my;
+    let mx = this.data.getMX();
+    let my = this.data.getMY();
+
     let deltaTime = this.timeLine.getDeltaTime()
     let ctx1 = this.ctx1;
     let momTail = this.momTail
@@ -74,12 +70,16 @@ export default class FishMom {
     let momBodyOra = this.momBodyOra;
     let data = this.data
 
+    // console.log("tag", mx, " ", this.x);
+    // console.log("tag", my, " ", this.y);
     this.x = utils.lerpDistance(mx, this.x, 0.9);
     this.y = utils.lerpDistance(my, this.y, 0.9);
+
 
     //delta angel.
     var deltaY = my - this.y;
     var deltaX = mx - this.x;
+
     var beta = Math.atan2(deltaY, deltaX) + Math.PI;
 
     //lerp angle
@@ -91,7 +91,6 @@ export default class FishMom {
       this.momTailTimer %= 50;
     }
 
-    //
     this.momEyeTimer += deltaTime;
     if (this.momEyeTimer > this.momEyeInterval) {
       this.momEyeCount = (this.momEyeCount + 1) % 2;

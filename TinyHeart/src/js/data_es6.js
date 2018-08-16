@@ -5,6 +5,8 @@ export default class DataObj {
     this.score = 0;
     this.gameover = false;
     this.alpha = 0;
+    this.mx = 0;
+    this.my = 0;
   }
   getGameOver() {
     return this.gameover;
@@ -31,5 +33,15 @@ export default class DataObj {
     this.score += this.fruitNum * 100 * this.double;
     this.fruitNum = 0;
     this.double = 1;
+  }
+  setLocation(mx, my) {
+    this.mx = mx;
+    this.my = my;
+  }
+  getMX() {
+    return this.mx;
+  }
+  getMY() {
+    return this.my;
   }
 }
