@@ -1,5 +1,5 @@
 export default class DataObj {
-  constructor() {
+  constructor(ctx1, w, h, timeLine) {
     this.fruitNum = 0;
     this.double = 1;
     this.score = 0;
@@ -7,14 +7,19 @@ export default class DataObj {
     this.alpha = 0;
     this.mx = 0;
     this.my = 0;
+    this.ctx1 = ctx1;
+    this.width = w;
+    this.height = h;
+    this.timeLine = timeLine;
   }
   getGameOver() {
     return this.gameover;
   }
   draw() {
-    var w = canvas1.width;
-    var h = canvas2.height;
-
+    let deltaTime = this.timeLine.getDeltaTime();
+    let w = this.width;
+    let h = this.height;
+    let ctx1 = this.ctx1;
     ctx1.shadowBlur = 10;
     ctx1.shadowColor = "white";
     ctx1.fillStyle = "white";

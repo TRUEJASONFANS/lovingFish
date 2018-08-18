@@ -7,6 +7,9 @@ import DataObj from './data_es6';
 import Background from '../images/background.jpg'
 import TimeLine from './time_line';
 import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+import Utils from './utils';
+import Wave from './wave_es6';
+import Halo from './halo_es6';
 export default class FishGame {
   constructor(window) {
     this.canvas1 = document.getElementById("canvas1");
@@ -30,7 +33,7 @@ export default class FishGame {
     this.oceaContext = new OceaContext(this.bg, this.canWidth, this.canHeight, this.ctx2);
     
     this.ane = new Ane(this.ctx2, this.canHeight,this.timeLine);
-    self.data = new DataObj();
+    self.data = new DataObj(this.ctx1, this.canWidth, this.canHeight, this.timeLine);
     this.fruit = new Fruit(this.ctx2, this.ane, this.timeLine);
 
     this.fishMom = new FishMom(this.canWidth, this.canHeight,this.timeLine, this.ctx1, self.data);
@@ -39,6 +42,9 @@ export default class FishGame {
     this.ctx1.font = "30px Verdana";
     this.ctx1.textAlign = "center";
 
+    this.baby = new FishBaby(this.ctx1, this.canWidth, this.canHeight, this.timeLine, this.fishMom);
+    this.wave = new Wave(this.ctx1, this.timeLine);
+    this.halo = new Halo(this.ctx1, this.timeLine);
   }
   onMouseMove(e) {
     if((e.offSetX || e.layerX)) {
@@ -57,5 +63,11 @@ export default class FishGame {
     this.ctx1.clearRect(0, 0, this.canWidth, this.canHeight);
     this.fruit.draw();
     this.fishMom.draw();
+    Utils.momFruitsCollision(self.data, this.fruit, this.fishMom, this.wave);
+    Utils.momBabyCollision(self.data, this.fishMom, this.baby, this.halo);
+    this.wave.draw();
+    this.baby.draw();
+    this.halo.draw();
+    self.data.draw();
   }
 }

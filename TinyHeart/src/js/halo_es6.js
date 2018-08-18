@@ -1,5 +1,5 @@
 export default class Halo {
-  constructor() {
+  constructor(ctx1, timeLine) {
     this.x = [];
     this.y = [];
     this.alive = [];
@@ -11,8 +11,12 @@ export default class Halo {
       this.alive[i] = false;
       this.r[i] = 0;
     }
+    this.ctx1 = ctx1;
+    this.timeLine = timeLine;
   }
   draw() {
+    let ctx1 = this.ctx1;
+    let deltaTime = this.timeLine.getDeltaTime();
     ctx1.save();
     ctx1.lineWidth = 2;
     ctx1.shadowBlur = 10;
@@ -36,7 +40,7 @@ export default class Halo {
     }
     ctx1.restore();
   }
-  born() {
+  born(x, y) {
     for (var i = 0; i < this.num; i++) {
       if (!this.alive[i]) {
         this.x[i] = x;
