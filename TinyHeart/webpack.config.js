@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 module.exports = {
   entry: "./src/js/main.js",
   mode: 'production',
@@ -31,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader"]
+        use: ["file-loader?limit=8192&name=images/[hash:8].[name].[ext]"]
       }
     ]
   }

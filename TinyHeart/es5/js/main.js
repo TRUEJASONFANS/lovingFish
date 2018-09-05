@@ -28,7 +28,7 @@ var momBodyBlue = [];
 
 var data;
 
-var wave;
+// var wave;
 
 var halo;
 
