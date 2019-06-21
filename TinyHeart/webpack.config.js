@@ -32,8 +32,14 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader?limit=8192&name=images/[hash:8].[name].[ext]"]
-      }
+        loader: 'url-loader',
+        query: {
+          // 图片大小限制 单位b
+          limit: 8192,
+          // 生成的文件的存放目录
+          name: 'resourse/[name].[ext]'
+        }
+      },
     ]
   }
 };
